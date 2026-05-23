@@ -142,6 +142,54 @@ button{
 🛒 Carrinho
 </h1>
 
+<div class="formulario">
+
+  <input
+    type="text"
+    id="nomeCliente"
+    placeholder="Seu nome"
+  >
+
+  <input
+    type="text"
+    id="telefoneCliente"
+    placeholder="Telefone"
+  >
+
+  <input
+    type="text"
+    id="enderecoCliente"
+    placeholder="Endereço"
+  >
+
+  <input
+    type="text"
+    id="referenciaCliente"
+    placeholder="Referência"
+  >
+
+  <select id="pagamentoCliente">
+
+    <option value="">
+      Forma de pagamento
+    </option>
+
+    <option>
+      Dinheiro
+    </option>
+
+    <option>
+      Pix
+    </option>
+
+    <option>
+      Cartão
+    </option>
+
+  </select>
+
+</div>
+
 <div id="carrinho"></div>
 
 <div class="total">
@@ -247,6 +295,31 @@ async function finalizarPedido(){
 
   }
 
+  const nome =
+  document.getElementById("nomeCliente").value;
+
+  const telefoneCliente =
+  document.getElementById("telefoneCliente").value;
+
+  const endereco =
+  document.getElementById("enderecoCliente").value;
+
+  const referencia =
+  document.getElementById("referenciaCliente").value;
+
+  const pagamento =
+  document.getElementById("pagamentoCliente").value;
+
+  if(!nome || !telefoneCliente || !endereco){
+
+    alert(
+      "Preencha nome, telefone e endereço"
+    );
+
+    return;
+
+  }
+
   let mensagem =
   "🍔 *Novo Pedido*%0A%0A";
 
@@ -266,13 +339,32 @@ async function finalizarPedido(){
   });
 
   mensagem +=
-  `%0A*Total:* R$ ${total.toFixed(2)}`;
 
-  /* OBJETO DO PEDIDO */
+  `%0A👤 *Cliente:* ${nome}` +
+
+  `%0A📞 *Telefone:* ${telefoneCliente}` +
+
+  `%0A📍 *Endereço:* ${endereco}` +
+
+  `%0A🏠 *Referência:* ${referencia}` +
+
+  `%0A💳 *Pagamento:* ${pagamento}` +
+
+  `%0A%0A💰 *Total:* R$ ${total.toFixed(2)}`;
+
+  /* OBJETO PEDIDO */
 
   const pedido = {
 
-    cliente:"Cliente Site",
+    cliente:nome,
+
+    telefone:telefoneCliente,
+
+    endereco:endereco,
+
+    referencia:referencia,
+
+    pagamento:pagamento,
 
     itens:nomes,
 
@@ -280,13 +372,13 @@ async function finalizarPedido(){
 
   };
 
-  /* SALVAR NA PLANILHA */
+  /* SALVAR */
 
   try{
 
     await fetch(
 
-      "https://script.google.com/macros/s/AKfycby-XrChkPbtzSZVtu2ovTZmNxQo6aRi991qvW-t2Vcy6097sYCFOmn-7U5q0WJ_dDtqDg/exec",
+      "https://script.google.com/macros/s/AKfycbxXlzzvn6BmEN_Fnpk73xnofoxXchYyi7u2DS7gQurUoT9EdncBN4zK8sBAe2fuifBaow/exec",
 
       {
 
@@ -306,18 +398,16 @@ async function finalizarPedido(){
 
   /* WHATSAPP */
 
-  const telefone =
-  "5521976556065";
+  const telefoneRestaurante =
+  "5511999999999";
 
   window.open(
 
-    `https://wa.me/${telefone}?text=${mensagem}`,
+    `https://wa.me/${telefoneRestaurante}?text=${mensagem}`,
 
     "_blank"
 
   );
-
-  /* LIMPAR CARRINHO */
 
   localStorage.removeItem("carrinho");
 
