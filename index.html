@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <base target="_top">
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <title>QuickMail Food</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+
+      background:#0f0f0f;
+
+      color:white;
+
+      font-family:Arial, sans-serif;
+
+      padding:18px;
+
+    }
+
+    h1{
+
+      font-size:34px;
+
+      margin-bottom:25px;
+
+      font-weight:bold;
+
+      letter-spacing:1px;
+
+    }
+
+    #produtos{
+
+      display:flex;
+
+      flex-direction:column;
+
+      gap:22px;
+
+    }
+
+    .card{
+
+      background:#1a1a1a;
+
+      border-radius:24px;
+
+      overflow:hidden;
+
+      display:flex;
+
+      gap:16px;
+
+      box-shadow:
+      0 5px 20px rgba(0,0,0,0.4);
+
+      transition:0.25s ease;
+
+    }
+
+    .card:hover{
+
+      transform:translateY(-4px);
+
+      box-shadow:
+      0 12px 30px rgba(0,0,0,0.55);
+
+    }
+
+    .imagem{
+
+      width:170px;
+
+      min-width:170px;
+
+      height:170px;
+
+      overflow:hidden;
+
+      background:#222;
+
+    }
+
+    .imagem img{
+
+      width:100%;
+
+      height:100%;
+
+      object-fit:cover;
+
+      display:block;
+
+      transition:0.35s ease;
+
+    }
+
+    .card:hover .imagem img{
+
+      transform:scale(1.08);
+
+    }
+
+    .conteudo{
+
+      flex:1;
+
+      padding:18px 18px 18px 0;
+
+      display:flex;
+
+      flex-direction:column;
+
+      justify-content:space-between;
+
+    }
+
+    .nome{
+
+      font-size:25px;
+
+      font-weight:bold;
+
+      margin-bottom:8px;
+
+    }
+
+    .categoria{
+
+      color:#9e9e9e;
+
+      font-size:14px;
+
+      margin-bottom:12px;
+
+    }
+
+    .descricao{
+
+      color:#d0d0d0;
+
+      font-size:25px;
+
+      line-height:1.5;
+
+    }
+
+    .rodape{
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      margin-top:20px;
+
+      gap:12px;
+
+    }
+
+    .preco{
+
+      color:#00e676;
+
+      font-size:26px;
+
+      font-weight:bold;
+
+    }
+
+    button{
+
+      border:none;
+
+      background:#00c853;
+
+      color:white;
+
+      padding:13px 20px;
+
+      border-radius:14px;
+
+      font-size:15px;
+
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.2s ease;
+
+    }
+
+    button:hover{
+
+      background:#00e676;
+
+      transform:scale(1.04);
+
+    }
+
+    @media(max-width:700px){
+
+      .card{
+
+        flex-direction:column;
+
+      }
+
+      .imagem{
+
+        width:100%;
+
+        height:240px;
+
+      }
+
+      .conteudo{
+
+        padding: 50px;
+
+      }
+
+      .rodape{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+      }
+
+      button{
+
+        width:100%;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>🍔 QuickMail Food</h1>
+
+  <div id="produtos"></div>
+
+  <script>
+
+    const produtos = [
+
+      {
+
+        nome:"X-Burger",
+
+        categoria:"Hambúrguer Artesanal",
+
+        descricao:"Hambúrguer artesanal com queijo cheddar e molho especial.",
+
+        preco:"15,00",
+
+        imagem:"https://i.postimg.cc/fbBKb8Rt/xburguer.png"
+
+      },
+
+      {
+
+        nome:"Pizza Calabresa",
+
+        categoria:"Pizza",
+
+        descricao:"Pizza recheada com calabresa e muito queijo.",
+
+        preco:"40,00",
+
+        imagem:"https://i.postimg.cc/R0XR0gZW/pizza.png"
+
+      }
+
+    ];
+
+    let html = "";
+
+    produtos.forEach(p => {
+
+      html += `
+
+        <div class="card">
+
+          <div class="imagem">
+
+            <img
+
+              src="${p.imagem}"
+
+              loading="lazy"
+
+              onerror="
+                this.onerror=null;
+                this.src='https://placehold.co/600x400?text=Food';
+              "
+
+            >
+
+          </div>
+
+          <div class="conteudo">
+
+            <div>
+
+              <div class="nome">
+                ${p.nome}
+              </div>
+
+              <div class="categoria">
+                ${p.categoria}
+              </div>
+
+              <div class="descricao">
+                ${p.descricao}
+              </div>
+
+            </div>
+
+            <div class="rodape">
+
+              <div class="preco">
+                R$ ${p.preco}
+              </div>
+
+              <button>
+                Fazer Pedido
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+    document.getElementById("produtos").innerHTML = html;
+
+  </script>
+
+</body>
+
+</html>
