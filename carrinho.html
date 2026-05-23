@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Carrinho</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  background:#111;
+  color:white;
+  font-family:Arial;
+  padding:20px;
+  padding-bottom:120px;
+
+}
+
+h1{
+
+  margin-bottom:25px;
+  font-size:32px;
+
+}
+
+#carrinho{
+
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+
+}
+
+.item{
+
+  background:#1e1e1e;
+
+  border-radius:18px;
+
+  padding:16px;
+
+  display:flex;
+
+  gap:15px;
+
+  align-items:center;
+
+}
+
+.item img{
+
+  width:90px;
+  height:90px;
+  object-fit:cover;
+  border-radius:12px;
+
+}
+
+.nome{
+
+  font-size:22px;
+  font-weight:bold;
+
+}
+
+.preco{
+
+  color:#00e676;
+  margin-top:8px;
+  font-size:20px;
+
+}
+
+.total{
+
+  position:fixed;
+
+  bottom:0;
+
+  left:0;
+
+  width:100%;
+
+  background:#1e1e1e;
+
+  padding:20px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  box-shadow:0 -4px 20px rgba(0,0,0,0.5);
+
+}
+
+button{
+
+  border:none;
+
+  background:#00c853;
+
+  color:white;
+
+  padding:16px 22px;
+
+  border-radius:14px;
+
+  font-size:16px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+}
+
+.vazio{
+
+  color:#999;
+  font-size:20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+🛒 Carrinho
+</h1>
+
+<div id="carrinho"></div>
+
+<div class="total">
+
+  <div id="valorTotal">
+    Total: R$ 0
+  </div>
+
+  <button onclick="finalizarPedido()">
+    Finalizar
+  </button>
+
+</div>
+
+<script>
+
+let carrinho =
+JSON.parse(localStorage.getItem("carrinho")) || [];
+
+function carregarCarrinho(){
+
+  const div =
+  document.getElementById("carrinho");
+
+  if(carrinho.length === 0){
+
+    div.innerHTML =
+    `<div class="vazio">
+      Seu carrinho está vazio
+    </div>`;
+
+    return;
+
+  }
+
+  let html = "";
+
+  let total = 0;
+
+  carrinho.forEach((item,index) => {
+
+    total += Number(item.preco);
+
+    html += `
+
+      <div class="item">
+
+        <img src="${item.imagem}">
+
+        <div>
+
+          <div class="nome">
+            ${item.nome}
+          </div>
+
+          <div class="preco">
+            R$ ${item.preco}
+          </div>
+
+          <button onclick="removerItem(${index})">
+            Remover
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  div.innerHTML = html;
+
+  document.getElementById("valorTotal")
+  .innerHTML =
+
+  `
+    Total: R$ ${total.toFixed(2)}
+  `;
+
+}
+
+function removerItem(index){
+
+  carrinho.splice(index,1);
+
+  localStorage.setItem(
+    "carrinho",
+    JSON.stringify(carrinho)
+  );
+
+  carregarCarrinho();
+
+}
+
+function finalizarPedido(){
+
+  if(carrinho.length === 0){
+
+    alert("Carrinho vazio");
+
+    return;
+
+  }
+
+  let mensagem =
+  "🍔 *Novo Pedido*%0A%0A";
+
+  let total = 0;
+
+  carrinho.forEach(item => {
+
+    mensagem +=
+    `• ${item.nome} - R$ ${item.preco}%0A`;
+
+    total += Number(item.preco);
+
+  });
+
+  mensagem +=
+  `%0A*Total:* R$ ${total.toFixed(2)}`;
+
+  const telefone =
+  "5521976556065";
+
+  window.open(
+
+    `https://wa.me/${telefone}?text=${mensagem}`,
+
+    "_blank"
+
+  );
+
+}
+
+carregarCarrinho();
+
+</script>
+
+</body>
+
+</html>
