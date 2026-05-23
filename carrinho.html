@@ -237,7 +237,7 @@ function removerItem(index){
 
 }
 
-function finalizarPedido(){
+async function finalizarPedido(){
 
   if(carrinho.length === 0){
 
@@ -247,33 +247,56 @@ function finalizarPedido(){
 
   }
 
-  let mensagem =
-  "🍔 *Novo Pedido*%0A%0A";
+  let nomes = "";
 
   let total = 0;
 
   carrinho.forEach(item => {
 
-    mensagem +=
-    `• ${item.nome} - R$ ${item.preco}%0A`;
+    nomes += item.nome + ", ";
 
     total += Number(item.preco);
 
   });
 
-  mensagem +=
-  `%0A*Total:* R$ ${total.toFixed(2)}`;
+  const pedido = {
 
-  const telefone =
-  "5521976556065";
+    cliente:"Cliente Site",
 
-  window.open(
+    itens:nomes,
 
-    `https://wa.me/${telefone}?text=${mensagem}`,
+    total:total
 
-    "_blank"
+  };
+
+  const resposta =
+  await fetch(
+
+    "https://script.google.com/macros/s/AKfycby-XrChkPbtzSZVtu2ovTZmNxQo6aRi991qvW-t2Vcy6097sYCFOmn-7U5q0WJ_dDtqDg/exec",
+
+    {
+
+      method:"POST",
+
+      body:JSON.stringify(pedido)
+
+    }
 
   );
+
+  const resultado =
+  await resposta.json();
+
+  alert(
+
+    "Pedido enviado #" +
+    resultado.pedido
+
+  );
+
+  localStorage.removeItem("carrinho");
+
+  location.reload();
 
 }
 
