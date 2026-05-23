@@ -1,3 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Produto</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  background:#111;
+  color:white;
+  font-family:Arial;
+  padding-bottom:100px;
+
+}
+
+/* BOTÃO VOLTAR */
+
+.voltar{
+
+  position:fixed;
+
+  top:15px;
+
+  left:15px;
+
+  background:#292929;
+
+  color:white;
+
+  border:none;
+
+  padding:14px 18px;
+
+  border-radius:14px;
+
+  font-size:15px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  z-index:999;
+
+  box-shadow:
+  0 4px 12px rgba(0,0,0,0.4);
+
+  transition:0.2s ease;
+
+}
+
+.voltar:hover{
+
+  background:#3b3b3b;
+
+  transform:scale(1.03);
+
+}
+
+/* IMAGEM */
+
+img{
+
+  width:100%;
+  height:300px;
+  object-fit:cover;
+
+}
+
+/* CONTAINER */
+
+.container{
+
+  padding:20px;
+
+}
+
+/* NOME */
+
+.nome{
+
+  font-size:32px;
+  font-weight:bold;
+  margin-top:10px;
+
+}
+
+/* DESCRIÇÃO */
+
+.descricao{
+
+  margin-top:15px;
+  color:#ccc;
+  line-height:1.5;
+  font-size:18px;
+
+}
+
+/* PREÇO */
+
+.preco{
+
+  margin-top:20px;
+  color:#00e676;
+  font-size:30px;
+  font-weight:bold;
+
+}
+
+/* BOTÃO ADICIONAR */
+
+.botao{
+
+  margin-top:25px;
+
+  width:100%;
+
+  border:none;
+
+  padding:18px;
+
+  border-radius:14px;
+
+  background:#00c853;
+
+  color:white;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.2s ease;
+
+}
+
+.botao:hover{
+
+  background:#00e676;
+
+}
+
+/* BARRA INFERIOR */
+
+.barra{
+
+  position:fixed;
+
+  bottom:0;
+
+  left:0;
+
+  width:100%;
+
+  background:#1e1e1e;
+
+  padding:16px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  box-shadow:0 -4px 20px rgba(0,0,0,0.5);
+
+}
+
+/* BOTÃO CARRINHO */
+
+.carrinhoBtn{
+
+  border:none;
+
+  background:#00c853;
+
+  color:white;
+
+  padding:14px 18px;
+
+  border-radius:12px;
+
+  font-size:15px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BOTÃO VOLTAR -->
+
+<button class="voltar" onclick="voltar()">
+  ← Continuar comprando
+</button>
+
+<!-- PRODUTO -->
+
+<div id="produto"></div>
+
+<!-- BARRA DO CARRINHO -->
+
+<div class="barra">
+
+  <div id="infoCarrinho">
+    0 itens
+  </div>
+
+  <button
+    class="carrinhoBtn"
+    onclick="abrirCarrinho()"
+  >
+
+    Carrinho
+
+  </button>
+
+</div>
+
 <script>
 
 const params =
@@ -133,3 +371,7 @@ carregarProduto();
 atualizarBarra();
 
 </script>
+
+</body>
+
+</html>
