@@ -4,39 +4,72 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Produto</title>
 
 <style>
-.voltar{
 
-  border:none;
-
-  background:#2b2b2b;
-
-  color:white;
-
-  padding:14px 18px;
-
-  border-radius:14px;
-
-  margin:20px;
-
-  font-size:15px;
-
-  cursor:pointer;
-
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
+
 body{
 
-  margin:0;
   background:#111;
   color:white;
   font-family:Arial;
   padding-bottom:100px;
 
 }
+
+/* BOTÃO VOLTAR */
+
+.voltar{
+
+  position:fixed;
+
+  top:15px;
+
+  left:15px;
+
+  background:#292929;
+
+  color:white;
+
+  border:none;
+
+  padding:14px 18px;
+
+  border-radius:14px;
+
+  font-size:15px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  z-index:999;
+
+  box-shadow:
+  0 4px 12px rgba(0,0,0,0.4);
+
+  transition:0.2s ease;
+
+}
+
+.voltar:hover{
+
+  background:#3b3b3b;
+
+  transform:scale(1.03);
+
+}
+
+/* IMAGEM */
 
 img{
 
@@ -46,26 +79,36 @@ img{
 
 }
 
+/* CONTAINER */
+
 .container{
 
   padding:20px;
 
 }
 
+/* NOME */
+
 .nome{
 
   font-size:32px;
   font-weight:bold;
+  margin-top:10px;
 
 }
+
+/* DESCRIÇÃO */
 
 .descricao{
 
   margin-top:15px;
   color:#ccc;
   line-height:1.5;
+  font-size:18px;
 
 }
+
+/* PREÇO */
 
 .preco{
 
@@ -75,6 +118,8 @@ img{
   font-weight:bold;
 
 }
+
+/* BOTÃO ADICIONAR */
 
 .botao{
 
@@ -96,7 +141,19 @@ img{
 
   font-weight:bold;
 
+  cursor:pointer;
+
+  transition:0.2s ease;
+
 }
+
+.botao:hover{
+
+  background:#00e676;
+
+}
+
+/* BARRA INFERIOR */
 
 .barra{
 
@@ -122,13 +179,45 @@ img{
 
 }
 
+/* BOTÃO CARRINHO */
+
+.carrinhoBtn{
+
+  border:none;
+
+  background:#00c853;
+
+  color:white;
+
+  padding:14px 18px;
+
+  border-radius:12px;
+
+  font-size:15px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+}
+
 </style>
 
 </head>
 
 <body>
 
+<!-- BOTÃO VOLTAR -->
+
+<button class="voltar" onclick="voltar()">
+  ← Continuar comprando
+</button>
+
+<!-- PRODUTO -->
+
 <div id="produto"></div>
+
+<!-- BARRA DO CARRINHO -->
 
 <div class="barra">
 
@@ -136,8 +225,13 @@ img{
     0 itens
   </div>
 
-  <button onclick="abrirCarrinho()">
+  <button
+    class="carrinhoBtn"
+    onclick="abrirCarrinho()"
+  >
+
     Carrinho
+
   </button>
 
 </div>
@@ -152,6 +246,8 @@ new URLSearchParams(window.location.search);
 
 const id =
 params.get("id");
+
+/* CARREGAR PRODUTO */
 
 async function carregarProduto(){
 
@@ -197,6 +293,8 @@ async function carregarProduto(){
 
 }
 
+/* ADICIONAR AO CARRINHO */
+
 function adicionarCarrinho(produto){
 
   let carrinho =
@@ -212,6 +310,8 @@ function adicionarCarrinho(produto){
   atualizarBarra();
 
 }
+
+/* ATUALIZAR BARRA */
 
 function atualizarBarra(){
 
@@ -236,6 +336,8 @@ function atualizarBarra(){
 
 }
 
+/* ABRIR CARRINHO */
+
 function abrirCarrinho(){
 
   window.location.href =
@@ -243,9 +345,7 @@ function abrirCarrinho(){
 
 }
 
-carregarProduto();
-
-atualizarBarra();
+/* VOLTAR */
 
 function voltar(){
 
@@ -254,10 +354,12 @@ function voltar(){
 
 }
 
+carregarProduto();
+
+atualizarBarra();
+
 </script>
 
 </body>
-<button class="voltar" onclick="voltar()">
-  ← Continuar comprando
-</button>
+
 </html>
