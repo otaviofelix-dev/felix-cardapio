@@ -4,11 +4,61 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Carrinho</title>
 
 <style>
+
+    .item img{
+  width:110px;
+  height:110px;
+  border-radius:18px;
+  object-fit:cover;
+}
+
+.info{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.nome{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.descricao{
+  color:#bdbdbd;
+  margin-top:10px;
+  line-height:1.5;
+  font-size:15px;
+}
+
+.preco{
+  color:#00e676;
+  font-size:22px;
+  margin-top:8px;
+  font-weight:bold;
+}
+
+.remover{
+  border:none;
+  background:#b71c1c;
+  color:white;
+  padding:12px 14px;
+  border-radius:12px;
+  font-size:14px;
+  cursor:pointer;
+  margin-top:14px;
+  transition:0.2s ease;
+}
+
+.remover:hover{
+  background:#d32f2f;
+}
 
 *{
   margin:0;
@@ -18,68 +68,233 @@
 
 body{
 
-  background:#111;
+  background:#0f0f0f;
+
   color:white;
-  font-family:Arial;
-  padding:20px;
-  padding-bottom:120px;
+
+  font-family:Arial,sans-serif;
+
+  padding:18px;
+
+  padding-bottom:130px;
+
+}
+
+/* TOPO */
+
+.topo{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+  margin-bottom:25px;
 
 }
 
 h1{
 
-  margin-bottom:25px;
-  font-size:32px;
+  font-size:34px;
 
-}
-
-#carrinho{
-
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-
-}
-
-.item{
-
-  background:#1e1e1e;
-
-  border-radius:18px;
-
-  padding:16px;
-
-  display:flex;
-
-  gap:15px;
-
-  align-items:center;
-
-}
-
-.item img{
-
-  width:90px;
-  height:90px;
-  object-fit:cover;
-  border-radius:12px;
-
-}
-
-.nome{
-
-  font-size:22px;
   font-weight:bold;
 
 }
 
+/* BOTÃO VOLTAR */
+
+.voltar{
+
+  border:none;
+
+  background:#1f1f1f;
+
+  color:white;
+
+  padding:12px 16px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  font-size:15px;
+
+  font-weight:bold;
+
+  transition:0.2s ease;
+
+}
+
+.voltar:hover{
+
+  background:#2a2a2a;
+
+}
+
+/* FORMULÁRIO */
+
+.formulario{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:14px;
+
+  margin-bottom:28px;
+
+}
+
+.formulario input,
+.formulario select{
+
+  width:100%;
+
+  border:none;
+
+  background:#1b1b1b;
+
+  color:white;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  font-size:16px;
+
+  outline:none;
+
+  transition:0.2s ease;
+
+}
+
+.formulario input:focus,
+.formulario select:focus{
+
+  background:#252525;
+
+  box-shadow:
+  0 0 0 2px #00c853;
+
+}
+
+/* LISTA */
+
+#carrinho{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:20px;
+
+}
+
+/* ITEM */
+
+.item{
+
+  background:#1b1b1b;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  display:flex;
+
+  gap:18px;
+
+  padding:16px;
+
+  box-shadow:
+  0 8px 20px rgba(0,0,0,0.3);
+
+}
+
+/* IMAGEM */
+
+.item img{
+
+  width:110px;
+
+  height:110px;
+
+  border-radius:18px;
+
+  object-fit:cover;
+
+}
+
+/* INFO */
+
+.info{
+
+  flex:1;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
+
+}
+
+/* NOME */
+
+.nome{
+
+  font-size:22px;
+
+  font-weight:bold;
+
+}
+
+/* PREÇO */
+
 .preco{
 
   color:#00e676;
+
+  font-size:22px;
+
   margin-top:8px;
-  font-size:20px;
+
+  font-weight:bold;
 
 }
+
+/* REMOVER */
+
+.remover{
+
+  border:none;
+
+  background:#b71c1c;
+
+  color:white;
+
+  padding:12px 14px;
+
+  border-radius:12px;
+
+  font-size:14px;
+
+  cursor:pointer;
+
+  margin-top:14px;
+
+  transition:0.2s ease;
+
+}
+
+.remover:hover{
+
+  background:#d32f2f;
+
+}
+
+/* TOTAL FIXO */
 
 .total{
 
@@ -91,9 +306,9 @@ h1{
 
   width:100%;
 
-  background:#1e1e1e;
+  background:#151515;
 
-  padding:20px;
+  padding:18px;
 
   display:flex;
 
@@ -101,11 +316,28 @@ h1{
 
   align-items:center;
 
-  box-shadow:0 -4px 20px rgba(0,0,0,0.5);
+  box-shadow:
+  0 -5px 20px rgba(0,0,0,0.4);
+
+  z-index:999;
 
 }
 
-button{
+/* TEXTO TOTAL */
+
+#valorTotal{
+
+  font-size:24px;
+
+  font-weight:bold;
+
+  color:#00e676;
+
+}
+
+/* BOTÃO FINALIZAR */
+
+.finalizar{
 
   border:none;
 
@@ -115,7 +347,7 @@ button{
 
   padding:16px 22px;
 
-  border-radius:14px;
+  border-radius:16px;
 
   font-size:16px;
 
@@ -123,12 +355,79 @@ button{
 
   cursor:pointer;
 
+  transition:0.2s ease;
+
 }
+
+.finalizar:hover{
+
+  background:#00e676;
+
+  transform:scale(1.03);
+
+}
+
+/* VAZIO */
 
 .vazio{
 
-  color:#999;
-  font-size:20px;
+  text-align:center;
+
+  color:#888;
+
+  padding:50px;
+
+  font-size:22px;
+
+}
+
+/* RESPONSIVO */
+
+@media(max-width:700px){
+
+  body{
+
+    padding:14px;
+
+    padding-bottom:140px;
+
+  }
+
+  h1{
+
+    font-size:28px;
+
+  }
+
+  .item{
+
+    flex-direction:column;
+
+  }
+
+  .item img{
+
+    width:100%;
+
+    height:220px;
+
+  }
+
+  .total{
+
+    flex-direction:column;
+
+    gap:14px;
+
+    align-items:stretch;
+
+  }
+
+  .finalizar{
+
+    width:100%;
+
+  }
 
 }
 
@@ -138,9 +437,26 @@ button{
 
 <body>
 
-<h1>
-🛒 Carrinho
-</h1>
+<!-- TOPO -->
+
+<div class="topo">
+
+  <button
+    class="voltar"
+    onclick="voltar()"
+  >
+
+    ← Continuar comprando
+
+  </button>
+
+  <h1>
+    🛒 Carrinho
+  </h1>
+
+</div>
+
+<!-- FORMULÁRIO -->
 
 <div class="formulario">
 
@@ -175,11 +491,11 @@ button{
     </option>
 
     <option>
-      Dinheiro
+      Pix
     </option>
 
     <option>
-      Pix
+      Dinheiro
     </option>
 
     <option>
@@ -190,7 +506,11 @@ button{
 
 </div>
 
+<!-- ITENS -->
+
 <div id="carrinho"></div>
+
+<!-- TOTAL -->
 
 <div class="total">
 
@@ -198,16 +518,26 @@ button{
     Total: R$ 0
   </div>
 
-  <button onclick="finalizarPedido()">
-    Finalizar
+  <button
+    class="finalizar"
+    onclick="finalizarPedido()"
+  >
+
+    Finalizar Pedido
+
   </button>
 
 </div>
 
 <script>
 
+const API =
+"https://script.google.com/macros/s/AKfycbxXlzzvn6BmEN_Fnpk73xnofoxXchYyi7u2DS7gQurUoT9EdncBN4zK8sBAe2fuifBaow/exec";
+
 let carrinho =
 JSON.parse(localStorage.getItem("carrinho")) || [];
+
+/* CARREGAR */
 
 function carregarCarrinho(){
 
@@ -217,9 +547,12 @@ function carregarCarrinho(){
   if(carrinho.length === 0){
 
     div.innerHTML =
-    `<div class="vazio">
-      Seu carrinho está vazio
-    </div>`;
+
+    `
+      <div class="vazio">
+        Seu carrinho está vazio
+      </div>
+    `;
 
     return;
 
@@ -235,29 +568,42 @@ function carregarCarrinho(){
 
     html += `
 
-      <div class="item">
+<div class="item">
 
-        <img src="${item.imagem}">
+  <img src="${item.imagem}">
 
-        <div>
+  <div class="info">
 
-          <div class="nome">
-            ${item.nome}
-          </div>
+    <div>
 
-          <div class="preco">
-            R$ ${item.preco}
-          </div>
-
-          <button onclick="removerItem(${index})">
-            Remover
-          </button>
-
-        </div>
-
+      <div class="nome">
+        ${item.nome}
       </div>
 
-    `;
+      <div class="descricao">
+        ${item.descricao}
+      </div>
+
+      <div class="preco">
+        R$ ${item.preco}
+      </div>
+
+    </div>
+
+    <button
+      class="remover"
+      onclick="removerItem(${index})"
+    >
+
+      Remover
+
+    </button>
+
+  </div>
+
+</div>
+
+`;
 
   });
 
@@ -272,18 +618,25 @@ function carregarCarrinho(){
 
 }
 
+/* REMOVER */
+
 function removerItem(index){
 
   carrinho.splice(index,1);
 
   localStorage.setItem(
+
     "carrinho",
+
     JSON.stringify(carrinho)
+
   );
 
   carregarCarrinho();
 
 }
+
+/* FINALIZAR */
 
 async function finalizarPedido(){
 
@@ -352,8 +705,6 @@ async function finalizarPedido(){
 
   `%0A%0A💰 *Total:* R$ ${total.toFixed(2)}`;
 
-  /* OBJETO PEDIDO */
-
   const pedido = {
 
     cliente:nome,
@@ -378,7 +729,7 @@ async function finalizarPedido(){
 
     await fetch(
 
-      "https://script.google.com/macros/s/AKfycbxXlzzvn6BmEN_Fnpk73xnofoxXchYyi7u2DS7gQurUoT9EdncBN4zK8sBAe2fuifBaow/exec",
+      API,
 
       {
 
@@ -399,7 +750,7 @@ async function finalizarPedido(){
   /* WHATSAPP */
 
   const telefoneRestaurante =
-  "5511999999999";
+  "5521976556065";
 
   window.open(
 
@@ -411,11 +762,11 @@ async function finalizarPedido(){
 
   localStorage.removeItem("carrinho");
 
-  carregarCarrinho();
+  location.reload();
 
 }
 
-carregarCarrinho();
+/* VOLTAR */
 
 function voltar(){
 
@@ -424,12 +775,10 @@ function voltar(){
 
 }
 
+carregarCarrinho();
+
 </script>
 
 </body>
-
-<button class="voltar" onclick="voltar()">
-  ← Continuar comprando
-</button>
 
 </html>
