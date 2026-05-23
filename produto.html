@@ -9,7 +9,25 @@
 <title>Produto</title>
 
 <style>
+.voltar{
 
+  border:none;
+
+  background:#2b2b2b;
+
+  color:white;
+
+  padding:14px 18px;
+
+  border-radius:14px;
+
+  margin:20px;
+
+  font-size:15px;
+
+  cursor:pointer;
+
+}
 body{
 
   margin:0;
@@ -229,8 +247,17 @@ carregarProduto();
 
 atualizarBarra();
 
+function voltar(){
+
+  window.location.href =
+  "index.html";
+
+}
+
 </script>
 
 </body>
-
+<button class="voltar" onclick="voltar()">
+  ← Continuar comprando
+</button>
 </html>
