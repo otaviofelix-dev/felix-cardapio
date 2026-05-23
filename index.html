@@ -3,17 +3,11 @@
 
 <head>
 
-  <base target="_top">
-
   <meta charset="UTF-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-
-  <title>QuickMail Food</title>
+  <title>Félix cardapio</title>
 
   <style>
 
@@ -157,7 +151,7 @@
 
       color:#d0d0d0;
 
-      font-size:25px;
+      font-size:18px;
 
       line-height:1.5;
 
@@ -235,7 +229,7 @@
 
       .conteudo{
 
-        padding: 50px;
+        padding:20px;
 
       }
 
@@ -261,108 +255,115 @@
 
 <body>
 
-  <h1>🍔 QuickMail Food</h1>
+  <h1>🍔 Félix Cardapio</h1>
 
-  <div id="produtos"></div>
+  <div id="produtos">
+
+    Carregando produtos...
+
+  </div>
 
   <script>
 
-    const produtos = [
+    // URL DO APPS SCRIPT
+    const API =
+      "https://script.google.com/macros/s/AKfycbwt3KrUacwYqOO31PcW36YjBPa_kC7JGlwnuNdeUvcimbbbyJHHlm-tNoqXsNbm2c2Qng/exec";
 
-      {
+    async function carregarProdutos(){
 
-        nome:"X-Burger",
+      try{
 
-        categoria:"Hambúrguer Artesanal",
+        const resposta =
+          await fetch(API);
 
-        descricao:"Hambúrguer artesanal com queijo cheddar e molho especial.",
+        const produtos =
+          await resposta.json();
 
-        preco:"15,00",
+        let html = "";
 
-        imagem:"https://i.postimg.cc/fbBKb8Rt/xburguer.png"
+        produtos.forEach(p => {
 
-      },
+          html += `
 
-      {
+            <div class="card">
 
-        nome:"Pizza Calabresa",
+              <div class="imagem">
 
-        categoria:"Pizza",
+                <img
 
-        descricao:"Pizza recheada com calabresa e muito queijo.",
+                  src="${p.imagem}"
 
-        preco:"40,00",
+                  loading="lazy"
 
-        imagem:"https://i.postimg.cc/R0XR0gZW/pizza.png"
+                  onerror="
+                    this.onerror=null;
+                    this.src='https://placehold.co/600x400?text=Food';
+                  "
+
+                >
+
+              </div>
+
+              <div class="conteudo">
+
+                <div>
+
+                  <div class="nome">
+                    ${p.nome}
+                  </div>
+
+                  <div class="categoria">
+                    ${p.categoria}
+                  </div>
+
+                  <div class="descricao">
+                    ${p.descricao}
+                  </div>
+
+                </div>
+
+                <div class="rodape">
+
+                  <div class="preco">
+                    R$ ${p.preco}
+                  </div>
+
+                  <button onclick="abrirProduto(${p.id})">
+                    Ver Produto
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          `;
+
+        });
+
+        document.getElementById("produtos").innerHTML =
+          html;
+
+      }catch(erro){
+
+        document.getElementById("produtos").innerHTML =
+          "Erro ao carregar produtos.";
+
+        console.log(erro);
 
       }
 
-    ];
+    }
 
-    let html = "";
+    function abrirProduto(id){
 
-    produtos.forEach(p => {
+      window.location.href =
+        `produto.html?id=${id}`;
 
-      html += `
+    }
 
-        <div class="card">
-
-          <div class="imagem">
-
-            <img
-
-              src="${p.imagem}"
-
-              loading="lazy"
-
-              onerror="
-                this.onerror=null;
-                this.src='https://placehold.co/600x400?text=Food';
-              "
-
-            >
-
-          </div>
-
-          <div class="conteudo">
-
-            <div>
-
-              <div class="nome">
-                ${p.nome}
-              </div>
-
-              <div class="categoria">
-                ${p.categoria}
-              </div>
-
-              <div class="descricao">
-                ${p.descricao}
-              </div>
-
-            </div>
-
-            <div class="rodape">
-
-              <div class="preco">
-                R$ ${p.preco}
-              </div>
-
-              <button>
-                Fazer Pedido
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      `;
-
-    });
-
-    document.getElementById("produtos").innerHTML = html;
+    carregarProdutos();
 
   </script>
 
