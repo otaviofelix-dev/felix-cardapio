@@ -4,116 +4,125 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Félix Cardápio</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:#0f0f0f;color:white;font-family:Arial,sans-serif;padding:18px;}
+/* TOPO */
+.topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;}
+h1{font-size:34px;font-weight:bold;letter-spacing:1px;}
 
-h1{font-size:34px;margin-bottom:25px;font-weight:bold;letter-spacing:1px;}
-
-/* PRODUTOS */
-#produtos{display:flex;flex-direction:column;gap:22px;}
-.card{background:#4e0202;border-radius:24px;overflow:hidden;display:flex;gap:16px;box-shadow:0 5px 20px rgba(0,0,0,0.4);transition:0.25s ease;}
-.card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.55);}
-.imagem{width:170px;min-width:170px;height:170px;overflow:hidden;background:#222;}
-.imagem img{width:100%;height:100%;object-fit:cover;display:block;transition:0.35s ease;}
-.card:hover .imagem img{transform:scale(1.08);}
-.conteudo{flex:1;padding:18px 18px 18px 0;display:flex;flex-direction:column;justify-content:space-between;}
-.nome{font-size:25px;font-weight:bold;margin-bottom:8px;}
-.categoria{color:#9e9e9e;font-size:14px;margin-bottom:12px;}
-.descricao{color:#d0d0d0;font-size:18px;line-height:1.5;}
-.rodape{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px;}
-.preco{color:#00e676;font-size:26px;font-weight:bold;}
-button{border:none;background:#00c853;color:white;padding:13px 20px;border-radius:14px;font-size:15px;font-weight:bold;cursor:pointer;transition:0.2s ease;}
-button:hover{background:#00e676;transform:scale(1.04);}
-
-/* CARRINHO FIXO CANTO SUPERIOR */
+/* CARRINHO FIXO */
 .carrinhoIcon{
-  position:fixed;
-  top:20px;
-  right:20px;
-  width:50px;
-  height:50px;
-  background:#00c853;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  box-shadow:0 4px 12px rgba(0,0,0,0.4);
-  z-index:999;
+  position:fixed; top:18px; right:18px;
+  width:55px; height:55px; border-radius:50%;
+  background:#00c853; display:flex;
+  justify-content:center; align-items:center;
+  cursor:pointer; z-index:999; box-shadow:0 6px 18px rgba(0,0,0,0.4);
   transition:0.2s ease;
 }
-.carrinhoIcon:hover{background:#00e676;}
-.carrinhoIcon img{width:28px;height:28px;}
+.carrinhoIcon:hover{transform:scale(1.05);}
+.carrinhoIcon img{width:26px;height:26px;}
 .bolinha{
-  position:absolute;
-  top:-5px;
-  right:-5px;
-  background:red;
-  color:white;
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:12px;
-  font-weight:bold;
-  box-shadow:0 2px 5px rgba(0,0,0,0.5);
+  position:absolute; top:-3px; right:-3px;
+  width:22px;height:22px; border-radius:50%;
+  background:red; display:flex; justify-content:center; align-items:center;
+  font-size:12px;font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.5);
 }
 
+/* PRODUTOS */
+#produtos{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+  gap:24px;
+}
+/* CARD */
+.card{
+  background:#1d1d1d; border-radius:22px; overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  transition:0.25s ease; display:flex; flex-direction:column;
+}
+.card:hover{transform:translateY(-5px);}
+/* IMAGEM */
+.imagem{width:100%; height:240px; background:#222; overflow:hidden;}
+.imagem img{width:100%; height:100%; object-fit:cover; display:block; transition:0.35s ease;}
+.card:hover .imagem img{transform:scale(1.05);}
+/* CONTEÚDO */
+.conteudo{padding:18px; display:flex; flex-direction:column; flex:1;}
+.nome{font-size:24px; font-weight:bold;}
+.categoria{color:#9e9e9e; margin-top:8px; font-size:14px;}
+.descricao{color:#d0d0d0; margin-top:14px; line-height:1.5; font-size:16px; flex:1;}
+.rodape{margin-top:20px; display:flex; justify-content:space-between; align-items:center; gap:12px;}
+.preco{color:#00e676; font-size:24px; font-weight:bold;}
+button{border:none; background:#00c853; color:white; padding:14px 18px; border-radius:14px; font-size:15px; font-weight:bold; cursor:pointer; transition:0.2s ease;}
+button:hover{background:#00e676; transform:scale(1.03);}
+/* LOADING */
+.loading{width:100%; text-align:center; padding:50px; color:#999; font-size:18px;}
 /* RESPONSIVO */
 @media(max-width:700px){
-  .card{flex-direction:column;}
-  .imagem{width:100%;height:240px;}
-  .conteudo{padding:20px;}
-  .rodape{flex-direction:column;align-items:flex-start;}
+  body{padding:14px;}
+  h1{font-size:28px;}
+  #produtos{grid-template-columns:1fr;}
+  .imagem{height:220px;}
+  .rodape{flex-direction:column; align-items:stretch;}
   button{width:100%;}
 }
 </style>
 </head>
+
 <body>
 
-<h1>🍔 Félix Cardápio</h1>
+<div class="topo">
+  <h1>🍔 Félix Cardápio</h1>
+</div>
 
-<!-- ÍCONE DO CARRINHO -->
+<!-- ÍCONE CARRINHO -->
 <div class="carrinhoIcon" onclick="abrirCarrinho()">
-  <img src="https://cdn-icons-png.flaticon.com/512/34/34568.png" alt="Carrinho">
+  <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png">
   <div class="bolinha" id="contador">0</div>
 </div>
 
-<div id="produtos">Carregando produtos...</div>
+<div id="produtos">
+  <div class="loading">Carregando produtos...</div>
+</div>
 
 <script>
+// URL da API do Google Sheets
 const API = "https://script.google.com/macros/s/AKfycbwt3KrUacwYqOO31PcW36YjBPa_kC7JGlwnuNdeUvcimbbbyJHHlm-tNoqXsNbm2c2Qng/exec";
 
-// Atualiza bolinha do carrinho
+// Abre carrinho
+function abrirCarrinho(){ window.location.href="carrinho.html"; }
+
+// Atualiza contador do carrinho
 function atualizarContador(){
   let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
   document.getElementById("contador").innerText = carrinho.length;
 }
 
-// Abre carrinho
-function abrirCarrinho(){ window.location.href="carrinho.html"; }
+// Abre produto
+function abrirProduto(id){ window.location.href=`produto.html?id=${id}`; }
 
 // Carrega produtos
 async function carregarProdutos(){
   try{
-    const resposta = await fetch(API);
-    const produtos = await resposta.json();
+    let produtos = JSON.parse(localStorage.getItem("produtos")) || null;
+    if(!produtos){
+      produtos = await fetch(API).then(r=>r.json());
+      localStorage.setItem("produtos", JSON.stringify(produtos));
+    }
+
     let html = "";
     produtos.forEach(p=>{
       html+=`
       <div class="card">
         <div class="imagem">
-          <img src="${p.imagem}" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Food';">
+          <img src="${p.imagem}" loading="lazy"
+            onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Food';">
         </div>
         <div class="conteudo">
-          <div>
-            <div class="nome">${p.nome}</div>
-            <div class="categoria">${p.categoria}</div>
-            <div class="descricao">${p.descricao}</div>
-          </div>
+          <div class="nome">${p.nome}</div>
+          <div class="categoria">${p.categoria}</div>
+          <div class="descricao">${p.descricao}</div>
           <div class="rodape">
             <div class="preco">R$ ${p.preco}</div>
             <button onclick="abrirProduto(${p.id})">Ver Produto</button>
@@ -121,16 +130,15 @@ async function carregarProdutos(){
         </div>
       </div>`;
     });
+
     document.getElementById("produtos").innerHTML = html;
   }catch(e){
-    document.getElementById("produtos").innerHTML = "Erro ao carregar produtos.";
+    document.getElementById("produtos").innerHTML = "<div class='loading'>Erro ao carregar produtos.</div>";
     console.log(e);
   }
 }
 
-// Abre produto
-function abrirProduto(id){ window.location.href=`produto.html?id=${id}`; }
-
+// Inicializa
 carregarProdutos();
 atualizarContador();
 </script>
