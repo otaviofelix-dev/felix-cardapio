@@ -316,27 +316,52 @@ async function carregarProdutos(){
 
   try{
 
-    let produtos =
-    JSON.parse(
-      localStorage.getItem("produtos")
-    ) || null;
+    const cacheProdutos =
+    localStorage.getItem("produtos");
 
-    if(!produtos){
+    const cacheTempo =
+    localStorage.getItem("produtos_tempo");
+
+    const agora =
+    Date.now();
+
+    // 5 minutos
+    const tempoLimite =
+    1000 * 60 * 5;
+
+    let produtos = null;
+
+    // USA CACHE SE FOR RECENTE
+    if(
+      cacheProdutos &&
+      cacheTempo &&
+      (agora - Number(cacheTempo) < tempoLimite)
+    ){
+
+      produtos =
+      JSON.parse(cacheProdutos);
+
+      console.log("Produtos carregados do CACHE");
+
+    }else{
+
+      console.log("Buscando produtos da API");
 
       const resposta =
       await fetch(API + "?produtos=1");
 
-      const texto =
-      await resposta.text();
-
-      console.log(texto);
-
       produtos =
-      JSON.parse(texto);
+      await resposta.json();
 
+      // SALVA CACHE NOVO
       localStorage.setItem(
         "produtos",
         JSON.stringify(produtos)
+      );
+
+      localStorage.setItem(
+        "produtos_tempo",
+        agora
       );
 
     }
@@ -359,7 +384,6 @@ async function carregarProdutos(){
             this.onerror=null;
             this.src='https://placehold.co/600x400?text=Food';
             "
-
           >
 
         </div>
@@ -367,37 +391,27 @@ async function carregarProdutos(){
         <div class="conteudo">
 
           <div class="nome">
-
             ${p.nome}
-
           </div>
 
           <div class="categoria">
-
             ${p.categoria}
-
           </div>
 
           <div class="descricao">
-
             ${p.descricao}
-
           </div>
 
           <div class="rodape">
 
             <div class="preco">
-
               R$ ${p.preco}
-
             </div>
 
             <button
-              onclick="abrirProduto(${p.id})"
+              onclick="abrirProduto('${p.id}')"
             >
-
               Ver Produto
-
             </button>
 
           </div>
@@ -415,23 +429,15 @@ async function carregarProdutos(){
 
   }catch(e){
 
-    document.getElementById("produtos")
-    .innerHTML = `
-
-    <div class='loading'>
-
-      Erro ao carregar produtos.
-
-    </div>
-
-    `;
-
-    alert(e);
-
     console.log(e);
 
+    document.getElementById("produtos")
+    .innerHTML = `
+      <div class='loading'>
+        Erro ao carregar produtos.
+      </div>
+    `;
   }
-
 }
 
 /* INICIAR */
