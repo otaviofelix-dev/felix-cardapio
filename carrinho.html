@@ -707,21 +707,25 @@ async function finalizarPedido(){
 
   const pedido = {
 
-    cliente:nome,
+  idPedido: Date.now(),
 
-    telefone:telefoneCliente,
+  status: "Pendente",
 
-    endereco:endereco,
+  cliente:nome,
 
-    referencia:referencia,
+  telefone:telefoneCliente,
 
-    pagamento:pagamento,
+  endereco:endereco,
 
-    itens:nomes,
+  referencia:referencia,
 
-    total:total
+  pagamento:pagamento,
 
-  };
+  itens:nomes,
+
+  total:total
+
+};
 
   /* SALVAR */
 
@@ -762,7 +766,8 @@ async function finalizarPedido(){
 
   localStorage.removeItem("carrinho");
 
-  location.reload();
+window.location.href =
+`pedido.html?id=${pedido.idPedido}`;
 
 }
 

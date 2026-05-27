@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Acompanhar Pedido</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#0f0f0f;
+  color:white;
+  font-family:Arial,sans-serif;
+  padding:20px;
+}
+
+/* CONTAINER */
+
+.container{
+  max-width:700px;
+  margin:auto;
+}
+
+/* CARD */
+
+.card{
+  background:#1b1b1b;
+  border-radius:24px;
+  padding:25px;
+  margin-top:20px;
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.35);
+}
+
+/* TOPO */
+
+.topo{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:32px;
+}
+
+/* STATUS */
+
+.status{
+  margin-top:20px;
+  padding:18px;
+  border-radius:18px;
+  font-size:22px;
+  font-weight:bold;
+  text-align:center;
+}
+
+/* CORES */
+
+.pendente{
+  background:#ff980020;
+  color:#ff9800;
+}
+
+.preparo{
+  background:#00d4ff20;
+  color:#00d4ff;
+}
+
+.entrega{
+  background:#9c27b020;
+  color:#d05cff;
+}
+
+.entregue{
+  background:#00c85320;
+  color:#00e676;
+}
+
+.cancelado{
+  background:#ff174420;
+  color:#ff5252;
+}
+
+/* INFO */
+
+.info{
+  margin-top:18px;
+  line-height:1.7;
+  color:#ddd;
+  font-size:17px;
+}
+
+/* ITENS */
+
+.itens{
+  margin-top:20px;
+  background:#252525;
+  padding:18px;
+  border-radius:18px;
+  line-height:1.7;
+}
+
+/* TOTAL */
+
+.total{
+  margin-top:20px;
+  font-size:28px;
+  color:#00e676;
+  font-weight:bold;
+}
+
+/* LOADING */
+
+.loading{
+  text-align:center;
+  margin-top:80px;
+  color:#888;
+  font-size:22px;
+}
+
+/* BARRA */
+
+.barra{
+  display:flex;
+  gap:10px;
+  margin-top:25px;
+}
+
+.etapa{
+  flex:1;
+  height:10px;
+  border-radius:999px;
+  background:#2d2d2d;
+  transition:0.3s;
+}
+
+.ativo{
+  background:#00c853;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:700px){
+
+  h1{
+    font-size:26px;
+  }
+
+  .status{
+    font-size:18px;
+  }
+
+  .total{
+    font-size:24px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="topo">
+
+    <h1>
+      🍔 Seu Pedido
+    </h1>
+
+  </div>
+
+  <div id="pedido">
+
+    <div class="loading">
+      Carregando pedido...
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const API =
+"https://script.google.com/macros/s/AKfycbxu_uvbSEjbKj2RbunHe-DKYlx30KhPrCbyDchz4QEp1Xz_N-iDDTYDjhuIrZ-i_d7oiQ/exec";
+
+/* PEGAR ID */
+
+const params =
+new URLSearchParams(window.location.search);
+
+const id =
+params.get("id");
+
+/* CARREGAR */
+
+async function carregarPedido(){
+
+  try{
+
+    const resposta =
+    await fetch(API + "?pedidos=1");
+
+    const pedidos =
+    await resposta.json();
+
+    const pedido =
+    pedidos.find(
+      p => String(p.idPedido) === String(id)
+    );
+
+    if(!pedido){
+
+      document.getElementById("pedido")
+      .innerHTML =
+
+      `
+        <div class="loading">
+          Pedido não encontrado
+        </div>
+      `;
+
+      return;
+
+    }
+
+    let classe = "";
+    let texto = "";
+    let progresso = 0;
+
+    switch(pedido.status){
+
+      case "Pendente":
+        classe = "pendente";
+        texto = "🟠 Pedido Recebido";
+        progresso = 1;
+      break;
+
+      case "Em preparo":
+        classe = "preparo";
+        texto = "👨‍🍳 Em Preparo";
+        progresso = 2;
+      break;
+
+      case "Saiu para entrega":
+        classe = "entrega";
+        texto = "🛵 Saiu para Entrega";
+        progresso = 3;
+      break;
+
+      case "Entregue":
+        classe = "entregue";
+        texto = "✅ Pedido Entregue";
+        progresso = 4;
+      break;
+
+      case "Cancelado":
+        classe = "cancelado";
+        texto = "❌ Pedido Cancelado";
+        progresso = 0;
+      break;
+
+      default:
+        classe = "pendente";
+        texto = "🟠 Pedido Recebido";
+
+    }
+
+    document.getElementById("pedido")
+    .innerHTML =
+
+    `
+
+    <div class="card">
+
+      <div>
+        <strong>Pedido #${pedido.idPedido}</strong>
+      </div>
+
+      <div class="status ${classe}">
+        ${texto}
+      </div>
+
+      <div class="barra">
+
+        <div class="etapa ${progresso >= 1 ? "ativo" : ""}"></div>
+
+        <div class="etapa ${progresso >= 2 ? "ativo" : ""}"></div>
+
+        <div class="etapa ${progresso >= 3 ? "ativo" : ""}"></div>
+
+        <div class="etapa ${progresso >= 4 ? "ativo" : ""}"></div>
+
+      </div>
+
+      <div class="info">
+
+        👤 ${pedido.cliente}
+
+        <br><br>
+
+        📞 ${pedido.telefone}
+
+        <br><br>
+
+        📍 ${pedido.endereco}
+
+        <br><br>
+
+        💳 ${pedido.pagamento}
+
+      </div>
+
+      <div class="itens">
+
+        🍔 ${pedido.itens}
+
+      </div>
+
+      <div class="total">
+
+        R$ ${Number(pedido.total).toFixed(2)}
+
+      </div>
+
+    </div>
+
+    `;
+
+  }catch(e){
+
+    console.log(e);
+
+    document.getElementById("pedido")
+    .innerHTML =
+
+    `
+      <div class="loading">
+        Erro ao carregar pedido
+      </div>
+    `;
+  }
+}
+
+/* AUTO UPDATE */
+
+setInterval(
+
+  carregarPedido,
+
+  5000
+
+);
+
+/* INICIAR */
+
+carregarPedido();
+
+</script>
+
+</body>
+
+</html>
