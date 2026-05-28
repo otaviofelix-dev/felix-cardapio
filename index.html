@@ -579,6 +579,8 @@ function abrirProduto(id){
 
 async function carregarProdutos(){
 
+
+
   try{
 
     const resposta =
@@ -586,6 +588,12 @@ async function carregarProdutos(){
 
     const produtos =
     await resposta.json();
+
+localStorage.setItem("produtos",
+JSON.stringify(produtos)
+);
+
+
 
     window.todosProdutos =
     produtos;
