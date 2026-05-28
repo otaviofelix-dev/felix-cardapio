@@ -221,6 +221,63 @@ body{
 }
 
 
+/* LOADING */
+
+/* LOADING TELA */
+
+#telaLoading{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:
+  rgba(15,15,15,0.55);
+
+  backdrop-filter:blur(14px);
+
+  transition:0.4s ease;
+}
+
+/* ESCONDER */
+
+#telaLoading.sumir{
+  opacity:0;
+  pointer-events:none;
+}
+
+.spinner{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+
+  border:5px solid
+  rgba(255,255,255,0.08);
+
+  border-top:5px solid
+  #00e676;
+
+  animation:girar 1s linear infinite;
+
+  box-shadow:
+  0 0 25px rgba(0,230,118,0.25);
+}
+
+@keyframes girar{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
 /* RESPONSIVO */
 
 @media(max-width:700px){
@@ -454,6 +511,12 @@ button:hover{
 
 <body>
 
+<div id="telaLoading">
+
+  <div class="spinner"></div>
+
+</div>
+
 <div class="topo">
 
   <!-- HERO / CARROSSEL -->
@@ -521,17 +584,10 @@ button:hover{
   🍟 Nosso Cardápio
 </h2>
 
+<div id="produtos"></div>
+
 <!-- PRODUTOS -->
 
-<div id="produtos">
-
-  <div class="loading">
-
-    Carregando produtos...
-
-  </div>
-
-</div>
 
 <script>
 
@@ -764,6 +820,14 @@ document.getElementById("dots")
 .innerHTML = dotsHTML;
 
 iniciarCarrossel();
+
+setTimeout(()=>{
+
+  document
+  .getElementById("telaLoading")
+  .classList.add("sumir");
+
+},600);
 
   }catch(e){
 
