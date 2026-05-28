@@ -252,7 +252,11 @@ JSON.parse(localStorage.getItem("produtos")) || [];
 /* ENCONTRAR PRODUTO */
 
 const produto =
-produtos.find(p => p.id == id);
+produtos.find(p =>
+
+  String(p.id) === String(id)
+
+);
 
 /* CARREGAR PRODUTO */
 
