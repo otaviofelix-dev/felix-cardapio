@@ -204,19 +204,16 @@ h1{
 
 /* FILTROS */
 
-/* FILTROS - CORRIGIDO PARA MOBILE */
-/* FILTROS - BARRA MAIS CURTA */
 #filtrosCategorias{
   display:flex;
   gap:8px;
   overflow-x:auto;
+
   width:100%;
-  max-width: 100%;           /* mantém responsivo */
-  padding: 8px 0 10px 0;
-  margin: 0 auto 22px auto;  /* centraliza um pouco */
+
+  padding:6px 0 10px 0;
+
   scrollbar-width:none;
-  padding-left: 4px;
-  padding-right: 30px;
 }
 
 #filtrosCategorias::-webkit-scrollbar{
@@ -224,24 +221,40 @@ h1{
 }
 
 .filtroBtn{
-  flex: 0 0 auto;
+  flex:0 0 auto;
+
   border:none;
+
   background:#1d1d1d;
+
   color:white;
-  padding:7px 15px;
+
+  height:34px;
+
+  padding:0 14px;
+
   border-radius:999px;
+
   cursor:pointer;
+
   font-weight:bold;
+
   white-space:nowrap;
-  font-size:12.8px;
-  min-height: 34px;
+
+  font-size:12px;
+
   display:flex;
   align-items:center;
+  justify-content:center;
+
+  width:auto;
+  min-width:unset;
+
+  transition:0.25s;
 }
 
 .filtroBtn.ativo{
   background:#00c853;
-  color:white;
 }
 
 .filtroBtn:hover{
@@ -407,16 +420,6 @@ button:hover{
 
 @media(max-width:700px){
 
-  .filtroBtn{
-    padding:11px 16px;
-    font-size:13.5px;
-  }
-  
-  #filtrosCategorias{
-    padding-right:30px;   /* ajuda a ver que pode rolar */
-  }
-}
-
   body{
     padding:14px;
   }
@@ -450,6 +453,8 @@ button:hover{
   button{
     width:100%;
   }
+
+}
 
 </style>
 
