@@ -206,18 +206,36 @@ h1{
 #filtrosCategorias{
   display:flex;
   gap:8px;
+
   overflow-x:auto;
+  overflow-y:hidden;
 
   width:100%;
 
-  padding:6px 0 10px 0;
+  padding:6px 0 12px 0;
 
-  scrollbar-width:none;
+  scrollbar-width:thin; /* Firefox */
+
+  scrollbar-color:#00c853 #1a1a1a;
 }
+
+/* SCROLLBAR CHROME */
 
 #filtrosCategorias::-webkit-scrollbar{
-  display:none;
+  height:6px;
 }
+
+#filtrosCategorias::-webkit-scrollbar-track{
+  background:#1a1a1a;
+  border-radius:999px;
+}
+
+#filtrosCategorias::-webkit-scrollbar-thumb{
+  background:#00c853;
+  border-radius:999px;
+}
+
+/* BOTÕES */
 
 .filtroBtn{
   flex:0 0 auto;
@@ -245,9 +263,6 @@ h1{
   display:flex;
   align-items:center;
   justify-content:center;
-
-  width:auto;
-  min-width:unset;
 
   transition:0.25s;
 }
