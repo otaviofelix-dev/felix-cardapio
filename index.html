@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -20,6 +21,37 @@ body{
   color:white;
   font-family:Arial,sans-serif;
   padding:18px;
+}
+
+/* TOPO */
+
+.topo{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.logoTitulo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:18px;
+}
+
+.subtitulo{
+  color:#aaa;
+  margin-top:6px;
+}
+
+h1{
+  font-size:34px;
 }
 
 /* HERO */
@@ -58,6 +90,7 @@ body{
 }
 
 @keyframes zoomHero{
+
   from{
     transform:scale(1);
   }
@@ -65,6 +98,7 @@ body{
   to{
     transform:scale(1.08);
   }
+
 }
 
 .overlay{
@@ -131,37 +165,6 @@ body{
   transform:scale(1.2);
 }
 
-/* TOPO */
-
-.topo{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-}
-
-.logoTitulo{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.logo{
-  width:60px;
-  height:60px;
-  object-fit:cover;
-  border-radius:18px;
-}
-
-.subtitulo{
-  color:#aaa;
-  margin-top:6px;
-}
-
-h1{
-  font-size:34px;
-}
-
 /* CARRINHO */
 
 .carrinhoIcon{
@@ -177,6 +180,7 @@ h1{
   align-items:center;
   cursor:pointer;
   z-index:999;
+  box-shadow:0 6px 18px rgba(0,0,0,0.4);
 }
 
 .carrinhoIcon img{
@@ -203,9 +207,17 @@ h1{
 #filtrosCategorias{
   display:flex;
   gap:12px;
+
   overflow-x:auto;
+  overflow-y:hidden;
+
+  width:100%;
+
+  padding-bottom:12px;
   margin-bottom:28px;
+
   scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
 }
 
 #filtrosCategorias::-webkit-scrollbar{
@@ -213,15 +225,22 @@ h1{
 }
 
 .filtroBtn{
-  flex:none;
+  flex:0 0 auto;
+
   border:none;
   background:#1d1d1d;
   color:white;
+
   padding:12px 18px;
+
   border-radius:999px;
+
   cursor:pointer;
+
   font-weight:bold;
+
   white-space:nowrap;
+
   transition:0.2s;
 }
 
@@ -375,9 +394,11 @@ button:hover{
 }
 
 @keyframes girar{
+
   to{
     transform:rotate(360deg);
   }
+
 }
 
 .loading{
@@ -534,53 +555,17 @@ function abrirProduto(id){
 
 }
 
-/* CARREGAR */
+/* CARREGAR PRODUTOS */
 
 async function carregarProdutos(){
 
   try{
 
-    const cacheProdutos =
-    localStorage.getItem("produtos");
+    const resposta =
+    await fetch(API + "?produtos=1");
 
-    const cacheTempo =
-    localStorage.getItem("produtos_tempo");
-
-    const agora = Date.now();
-
-    const tempoLimite =
-    1000 * 60 * 5;
-
-    let produtos = null;
-
-    if(
-      cacheProdutos &&
-      cacheTempo &&
-      (agora - Number(cacheTempo) < tempoLimite)
-    ){
-
-      produtos =
-      JSON.parse(cacheProdutos);
-
-    }else{
-
-      const resposta =
-      await fetch(API + "?produtos=1");
-
-      produtos =
-      await resposta.json();
-
-      localStorage.setItem(
-        "produtos",
-        JSON.stringify(produtos)
-      );
-
-      localStorage.setItem(
-        "produtos_tempo",
-        agora
-      );
-
-    }
+    const produtos =
+    await resposta.json();
 
     window.todosProdutos =
     produtos;
@@ -611,7 +596,9 @@ async function carregarProdutos(){
         Erro ao carregar produtos.
       </div>
     `;
+
   }
+
 }
 
 /* HERO */
@@ -702,7 +689,7 @@ function gerarFiltros(produtos){
 
 }
 
-/* PRODUTOS */
+/* RENDERIZAR PRODUTOS */
 
 function renderizarProdutos(produtos){
 
@@ -780,9 +767,11 @@ function filtrarCategoria(categoria, botao){
 
   document
   .querySelectorAll(".filtroBtn")
-  .forEach(btn=>
-    btn.classList.remove("ativo")
-  );
+  .forEach(btn=>{
+
+    btn.classList.remove("ativo");
+
+  });
 
   botao.classList.add("ativo");
 
@@ -816,6 +805,9 @@ function iniciarCarrossel(){
 
   const dots =
   document.querySelectorAll(".dot");
+
+  if(slides.length == 0)
+  return;
 
   let slideAtual = 0;
 
@@ -855,3 +847,4 @@ atualizarContador();
 
 </body>
 </html>
+```
