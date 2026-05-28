@@ -22,6 +22,205 @@ body{
   padding:18px;
 }
 
+
+/* HERO */
+
+.hero{
+  width:100%;
+  height:380px;
+  border-radius:28px;
+  overflow:hidden;
+  position:relative;
+  margin-bottom:35px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.slides{
+  width:100%;
+  height:100%;
+  position:relative;
+}
+
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  inset:0;
+  opacity:0;
+  transition:1s ease;
+}
+
+.slide.ativa{
+  opacity:1;
+  z-index:1;
+}
+
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  animation:zoomHero 8s linear infinite;
+}
+
+@keyframes zoomHero{
+
+  0%{
+    transform:scale(1);
+  }
+
+  100%{
+    transform:scale(1.08);
+  }
+
+}
+.overlay{
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(
+    to right,
+    rgba(0,0,0,0.8),
+    rgba(0,0,0,0.25)
+  );
+}
+
+.textoHero{
+  position:absolute;
+  top:50%;
+  left:50px;
+  transform:translateY(-50%);
+  z-index:2;
+  max-width:500px;
+}
+
+.tag{
+  display:inline-block;
+  background:#00c853;
+  color:white;
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:16px;
+}
+
+.textoHero h2{
+  font-size:52px;
+  margin-bottom:12px;
+}
+
+.textoHero p{
+  color:#ddd;
+  line-height:1.6;
+  margin-bottom:22px;
+  font-size:18px;
+}
+
+.textoHero button{
+  padding:16px 28px;
+  font-size:16px;
+  border-radius:16px;
+}
+
+.bolinhasHero{
+  position:absolute;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:10px;
+  z-index:10;
+}
+
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#777;
+  transition:0.3s;
+}
+
+.dot.ativa{
+  background:#00e676;
+  transform:scale(1.2);
+}
+
+/* TITULO CATEGORIA */
+
+.tituloSecao{
+  font-size:28px;
+  margin-bottom:22px;
+  font-weight:bold;
+}
+
+/* CARD MELHORADO */
+
+.card{
+  background:linear-gradient(
+    180deg,
+    #1d1d1d,
+    #171717
+  );
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+.card:hover{
+  transform:
+  translateY(-7px)
+  scale(1.01);
+}
+
+.imagem{
+  position:relative;
+}
+
+.badgePromo{
+  position:absolute;
+  top:14px;
+  left:14px;
+  background:#ff1744;
+  color:white;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:bold;
+  z-index:2;
+}
+
+/* BARRA SUPERIOR */
+
+.topo{
+  margin-bottom:20px;
+}
+
+.subtitulo{
+  color:#aaa;
+  margin-top:6px;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:700px){
+
+  .hero{
+    height:300px;
+  }
+
+  .textoHero{
+    left:24px;
+    right:24px;
+  }
+
+  .textoHero h2{
+    font-size:34px;
+  }
+
+  .textoHero p{
+    font-size:15px;
+  }
+
+}
+
 /* TOPO */
 
 .topo{
@@ -234,9 +433,129 @@ button:hover{
 
 <div class="topo">
 
-  <h1>
-    🍔 Félix Cardápio
-  </h1>
+  <!-- HERO / CARROSSEL -->
+
+<div class="hero">
+
+  <div class="slides">
+
+    <!-- SLIDE 1 -->
+
+    <div class="slide ativa">
+
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1400&auto=format&fit=crop">
+
+      <div class="overlay"></div>
+
+      <div class="textoHero">
+
+        <span class="tag">
+          PROMOÇÃO DO MÊS
+        </span>
+
+        <h2>
+          Smash Burger Duplo
+        </h2>
+
+        <p>
+          Compre 2 combos e ganhe refrigerante grátis.
+        </p>
+
+        <button onclick="scrollProdutos()">
+          Pedir Agora
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- SLIDE 2 -->
+
+    <div class="slide">
+
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1400&auto=format&fit=crop">
+
+      <div class="overlay"></div>
+
+      <div class="textoHero">
+
+        <span class="tag">
+          MAIS PEDIDO
+        </span>
+
+        <h2>
+          Pizza Artesanal
+        </h2>
+
+        <p>
+          Massa artesanal e ingredientes premium.
+        </p>
+
+        <button onclick="scrollProdutos()">
+          Ver Cardápio
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- SLIDE 3 -->
+
+    <div class="slide">
+
+      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1400&auto=format&fit=crop">
+
+      <div class="overlay"></div>
+
+      <div class="textoHero">
+
+        <span class="tag">
+          DELIVERY RÁPIDO
+        </span>
+
+        <h2>
+          Chega Quentinho
+        </h2>
+
+        <p>
+          Entrega rápida e pedidos preparados na hora.
+        </p>
+
+        <button onclick="scrollProdutos()">
+          Fazer Pedido
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- BOLINHAS -->
+
+  <div class="bolinhasHero">
+
+    <div class="dot ativa"></div>
+
+    <div class="dot"></div>
+
+    <div class="dot"></div>
+
+  </div>
+
+</div>
+
+  <div>
+
+    <h1>
+      🍔 Félix Cardápio
+    </h1>
+
+    <div class="subtitulo">
+      Os melhores lanches da cidade
+    </div>
+
+  </div>
 
 </div>
 
@@ -257,6 +576,10 @@ button:hover{
   </div>
 
 </div>
+
+<h2 class="tituloSecao">
+  🍟 Nosso Cardápio
+</h2>
 
 <!-- PRODUTOS -->
 
@@ -376,6 +699,16 @@ async function carregarProdutos(){
 
         <div class="imagem">
 
+  ${
+    p.promocao == "SIM"
+    ?
+    `<div class="badgePromo">
+      PROMOÇÃO
+    </div>`
+    :
+    ""
+  }
+
           <img
             src="${p.imagem}"
             loading="lazy"
@@ -445,6 +778,82 @@ async function carregarProdutos(){
 carregarProdutos();
 
 atualizarContador();
+
+
+/* HERO CARROSSEL */
+
+const slides =
+document.querySelectorAll(".slide");
+
+const dots =
+document.querySelectorAll(".dot");
+
+let slideAtual = 0;
+
+function mostrarSlide(index){
+
+  slides.forEach(slide=>{
+    slide.classList.remove("ativa");
+  });
+
+  dots.forEach(dot=>{
+    dot.classList.remove("ativa");
+  });
+
+  slides[index]
+  .classList.add("ativa");
+
+  dots[index]
+  .classList.add("ativa");
+
+}
+
+function trocarSlide(){
+
+  slideAtual++;
+
+  if(slideAtual >= slides.length){
+
+    slideAtual = 0;
+
+  }
+
+  mostrarSlide(slideAtual);
+
+}
+
+/* AUTO PLAY */
+
+setInterval(
+  trocarSlide,
+  4500
+);
+
+/* CLICK NAS BOLINHAS */
+
+dots.forEach((dot,index)=>{
+
+  dot.addEventListener("click",()=>{
+
+    slideAtual = index;
+
+    mostrarSlide(slideAtual);
+
+  });
+
+});
+
+/* SCROLL */
+
+function scrollProdutos(){
+
+  document
+  .getElementById("produtos")
+  .scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
 
 </script>
 
