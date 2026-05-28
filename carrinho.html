@@ -577,7 +577,7 @@ function carregarCarrinho(){
     <div>
 
       <div class="nome">
-        ${item.nome}
+        ${item.nome} (${item.quantidade || 1}x)
       </div>
 
       <div class="descricao">
@@ -683,11 +683,14 @@ async function finalizarPedido(){
   carrinho.forEach(item => {
 
     mensagem +=
-    `• ${item.nome} - R$ ${item.preco}%0A`;
+    `• ${item.nome} (${item.quantidade || 1}x)
+  - R$ ${(Number(item.preco) * (item.quantidade || 1)).toFixed(2)}%0A`;
 
     nomes += item.nome + ", ";
 
-    total += Number(item.preco);
+    total +=
+Number(item.preco) *
+(item.quantidade || 1);
 
   });
 

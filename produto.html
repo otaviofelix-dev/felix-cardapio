@@ -316,7 +316,31 @@ function adicionarCarrinho(produto){
   let carrinho =
   JSON.parse(localStorage.getItem("carrinho")) || [];
 
-  carrinho.push(produto);
+  // procura item existente
+
+  const itemExistente =
+  carrinho.find(item =>
+
+    String(item.id) === String(produto.id)
+
+  );
+
+  // se já existir aumenta quantidade
+
+  if(itemExistente){
+
+    itemExistente.quantidade =
+    (itemExistente.quantidade || 1) + 1;
+
+  }else{
+
+    // cria novo item
+
+    produto.quantidade = 1;
+
+    carrinho.push(produto);
+
+  }
 
   localStorage.setItem(
     "carrinho",
@@ -336,16 +360,24 @@ function atualizarBarra(){
 
   let total = 0;
 
+  let quantidadeTotal = 0;
+
   carrinho.forEach(item => {
 
-    total += Number(item.preco);
+    const quantidade =
+    item.quantidade || 1;
+
+    quantidadeTotal += quantidade;
+
+    total +=
+    Number(item.preco) * quantidade;
 
   });
 
   document.getElementById("infoCarrinho").innerHTML =
 
   `
-    ${carrinho.length} itens
+    ${quantidadeTotal} itens
     •
     R$ ${total.toFixed(2)}
   `;
