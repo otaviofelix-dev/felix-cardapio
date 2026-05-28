@@ -9,6 +9,8 @@
 
 <style>
 
+
+
 *{
   margin:0;
   padding:0;
@@ -197,6 +199,27 @@ body{
   color:#aaa;
   margin-top:6px;
 }
+
+.subtitulo{
+  color:#aaa;
+  margin-top:6px;
+}
+
+.logoTitulo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.4);
+  border:2px solid rgba(255,255,255,0.08);
+}
+
 
 /* RESPONSIVO */
 
@@ -439,9 +462,16 @@ button:hover{
 
   <div>
 
-    <h1>
-      🍔 Félix Cardápio
-    </h1>
+    <h1 class="logoTitulo">
+
+  <img
+    src="https://static.wikia.nocookie.net/6fbc4c9b-8b4c-47a6-984f-2006c8e8a3a5/scale-to-width/755"
+    class="logo"
+  >
+
+  Félix Cardápio
+
+</h1>
 
     <div class="subtitulo">
       Os melhores lanches da cidade
@@ -508,7 +538,7 @@ button:hover{
 /* API */
 
 const API =
-"https://script.google.com/macros/s/AKfycbxJrnbC_4yVaXtetK_4Eo1IYJ-Y6CWWCWc7J_QKaW58pA1lwRKXedDIT-1hk0YmLjaUqA/exec";
+"https://script.google.com/macros/s/AKfycbwG_i5jLhB7EpRQUlq6fElXCgdJ7WINzsF_cuKyzcGY_cA-ziUYR02VeYfSXa7DJnoQ9w/exec";
 
 /* ABRIR CARRINHO */
 
