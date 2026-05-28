@@ -614,10 +614,28 @@ async function carregarProdutos(){
 
 function gerarHero(produtos){
 
+  let promocoes =
+  produtos.filter(p =>
+
+    p.promocao &&
+    p.promocao.toUpperCase() == "SIM"
+
+  );
+
+  // Se não existir promoção,
+  // pega os 3 primeiros produtos
+
+  if(promocoes.length == 0){
+
+    promocoes =
+    produtos.slice(0,3);
+
+  }
+
   let heroHTML = "";
   let dotsHTML = "";
 
-  produtos.slice(0,3).forEach((p,index)=>{
+  promocoes.forEach((p,index)=>{
 
     heroHTML += `
 
@@ -630,7 +648,7 @@ function gerarHero(produtos){
       <div class="textoHero">
 
         <div class="tag">
-          ${p.categoria}
+          🔥 PROMOÇÃO
         </div>
 
         <h2>
